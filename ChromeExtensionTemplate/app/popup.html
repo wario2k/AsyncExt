@@ -24,9 +24,26 @@
       - [1]: http://developer.chrome.com/extensions/contentSecurityPolicy.html
      -->
     <script src="popup.js"></script>
+		
+		<!-- Scripts -->
+		<script src="js/jquery-3.4.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		
+		<!-- Cascading Style Sheets -->
+		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link href="css/custom.css" rel="stylesheet" media="screen">	
   </head>
   <body>
-      <p>This is a Chrome extension</p>
+      <div class="container">
+        <div class="row">
+          <div class="col-6">
+            <button class="btn btn-primary">GMail</button>
+          </div>
+          <div class="col-6">
+            <button class="btn btn-warning">UPS</button>
+          </div>
+        </div>
+      </div>
   </body>
 </html>
 
