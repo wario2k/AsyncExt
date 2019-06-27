@@ -1,11 +1,10 @@
 {
-    "name": "Google Chrome Extension Example",
+    "name": "Google Chrome Extension",
     "description": "This is an example of a Google Chrome extension.",
     "version": "0.1",
-    "permissions": [ "storage" ],
+    "permissions": [ "storage","notifications" ],
     "background": {
-        "scripts": [ "background.js" ],
-        "persistent": false
+        "scripts": [ "background.js" ]
     },
     "browser_action": {
         "default_icon": "img/icon.png",
