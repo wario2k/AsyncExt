@@ -1,0 +1,91 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>UPS Chrome Extension</title>
+	<meta name="description" content="The HTML5 Herald">
+	<meta name="author" content="SitePoint">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+		integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+		integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+		crossorigin="anonymous"></script>
+
+	<style>
+		
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		
+	</div>
+</body>
+<script>
+	$(document).ready(() => {
+
+
+
+		/**
+		 * Basic JQuery example
+		 */
+		var submitBtn = $('#submit-btn');
+		var groupInput = $('#group-in');
+		var artifactInput = $('#artifact-in');
+		var v1Input = $('#v1-in');
+		var v2Input = $('#v2-in');
+		var v3Input = $('#v3-in');
+		var nameInput = $('#path-in')
+		var pomDiv = $('#pom-entry');
+		var deployDiv = $('#mvn-deploy');
+		submitBtn.click(function (e) {
+			e.preventDefault();
+
+			// Get form values
+			var g = groupInput.val();
+			var a = artifactInput.val();
+			var v1 = v1Input.val();
+			var v2 = v2Input.val();
+			var v3 = v3Input.val();
+			var version = v1 + (v2 === "" ? "" : ".") + v2 + (v3 === "" ? "" : ".") + v3;
+			var p = nameInput.val();
+			if (p === "")
+				p = a;
+			p += '.jar';
+
+			// Add in formatted content
+			var r = $('<code></code>');
+			var content = '&lt;dependency&gt;<br/>'
+				+ '<span class="tab-sp"/>\t&lt;groupId&gt;' + g + '&lt;/groupId&gt;<br/>'
+				+ '<span class="tab-sp"/>\t&lt;artifactId&gt;' + a + '&lt;/artifactId&gt;<br/>'
+				+ '<span class="tab-sp"/>\t&lt;version&gt;' + version + '&lt;/version&gt;<br/>'
+				+ '&lt;/dependency&gt;<br/>';
+			r.html(content);
+			pomDiv.append(r);
+
+			r = $('<code></code>');
+			content = 'mvn deploy:deploy-file'
+				+ ' -DgroupId=' + g
+				+ ' -DartifactId=' + a
+				+ ' -Dversion=' + version
+				+ ' -Dpackaging=jar'
+				+ ' -DrepositoryId=pls-ups-third-party'
+				+ ' -Durl=https://nexusrm.ups.com:8443/repository/ups-third-party/'
+				+ ' -Dfile=' + p + '<br/>';
+			r.html(content);
+			deployDiv.append(r);
+		})
+	});
+
+</script>
+
+</html>
