@@ -11,3 +11,17 @@ var popup = {
     },
 };
 
+$(document).ready(() => {
+    const loginBtn = $('#ups-login-btn');
+    const loginForm = $('#ups-login-form');
+
+    console.log('Document loaded!');
+    loginBtn.click((e) => {
+        console.log('Login btn clicked');
+        e.preventDefault();
+
+        // Hide login on submit
+        loginForm.slideUp();
+        
+    });
+});

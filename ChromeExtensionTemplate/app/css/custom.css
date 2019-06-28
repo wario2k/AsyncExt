@@ -1,0 +1,55 @@
+body, button, input {
+    font-size: 8pt;
+}
+
+.bg-ups-gold {
+    background-color: #FFD100;
+}
+
+.bg-ups-gray {
+    background-color: #d9d9d6;
+}
+
+.bg-order-processed {
+    background-color: #FFD100;
+}
+.bg-in-transit {
+    background-color: #426DA9;
+    color: white;
+}
+.bg-delivered {
+    background-color: #6E7E1B;
+    color: white;
+}
+
+.ups-header {
+    font-size: 12pt;
+}
+
+hr {
+    border-top: 2px solid #d9d9d6;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.ups-underline-gray {
+    border-bottom: 3px solid #d9d9d6;
+}
+
+.ups-summary-list > div{
+    padding: 5px;
+    width: 33.32%;
+}
+
+.ups-summary-list > div > div {
+    padding: 10px;
+}
+
+.ups-summary-list > div > div > p:nth-child(1) {
+    font-size: 16pt;
+}
+.ups-summary-list > div > div > p:nth-child(2) {
+    height: 2em; 
+    line-height: 2em;
+    overflow: hidden;
+}
