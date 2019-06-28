@@ -30,5 +30,5 @@ if (window.Notification) {
             interval = 0;
         }
     }
-        , 60000);//timeout
+        , 600000);//timeout
 }

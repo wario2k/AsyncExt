@@ -1,20 +1,20 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Codaflex Chrome Extension Template</title>
+<head>
+    <title>UPS Chrome Extention</title>
     <style>
-      body {
-        min-width: 357px;
-        overflow-x: hidden;
-      }
+        body {
+            min-width: 357px;
+            overflow-x: hidden;
+        }
 
-      img {
-        margin: 5px;
-        border: 2px solid black;
-        vertical-align: middle;
-        width: 75px;
-        height: 75px;
-      }
+        img {
+            margin: 5px;
+            border: 2px solid black;
+            vertical-align: middle;
+            width: 75px;
+            height: 75px;
+        }
     </style>
 
     <!--
@@ -23,39 +23,75 @@
       -
       - [1]: http://developer.chrome.com/extensions/contentSecurityPolicy.html
      -->
+    
+    <!-- Scripts -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="popup.js"></script>
-		
-		<!-- Scripts -->
-		<script src="js/jquery-3.4.1.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		
-		<!-- Cascading Style Sheets -->
-		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-		<link href="css/custom.css" rel="stylesheet" media="screen">	
-  </head>
-  <body>
-          <h1>UPS</h1>
-          <h2>Package 1</h2>
-          <h4>Status: In Transit</h4>
-          <h4>Estamated Delivery Date: 06/27/2019</h4>
-    
-          <h2>Package 2</h2>
-          <h4>Status: Delivered</h4>
-          <h4>Estamated Delivery Date: 06/22/2019</h4>
-    
-          <h2>Package 3</h2>
-          <h4>Status: Order Processed</h4>
-          <h4>Estamated Delivery Date: 06/28/2019</h4>
-      <div class="container">
-        <div class="row">
-          <div class="col-6">
-            <button class="btn btn-primary">GMail</button>
-          </div>
-          <div class="col-6">
-            <button class="btn btn-warning">UPS</button>
-          </div>
+
+    <!-- Cascading Style Sheets -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/custom.css" rel="stylesheet" media="screen">
+</head>
+
+<body>
+
+    <div class="navbar" style="background-color:black" align="center">
+        <img src="https://cdn.worldvectorlogo.com/logos/ups.svg">
+    </div>
+
+    <h3 align="center">Inbound Packages</h3>
+
+    <!--Package 1-->
+    <div align="center" class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a id="Shipment1_TrackingNumber" data-toggle="collapse" href="#collapse1">Collapsible list group</a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+                <ul class="list-group">
+                    <li id="Shipment1_DeliveryDateBy" class="list-group-item">One</li>
+                    <li id="Shipment1_Status" class="list-group-item">Two</li>
+                </ul>
+            </div>
         </div>
-      </div>
-  </body>
+    </div>
+
+    <!--Package 2-->
+    <div align="center" class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a id="Shipment2_TrackingNumber" data-toggle="collapse" href="#collapse2">Collapsible list group</a>
+                </h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+                <ul class="list-group">
+                    <li id="Shipment2_DeliveryDateBy" class="list-group-item">One</li>
+                    <li id="Shipment2_Status" class="list-group-item">Two</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--Package 3-->
+    <div align="center" class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a id="Shipment3_TrackingNumber" data-toggle="collapse" href="#collapse3">Collapsible list group</a>
+                </h4>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+                <ul class="list-group">
+                    <li id="Shipment3_DeliveryDateBy" class="list-group-item">One</li>
+                    <li id="Shipment3_Status" class="list-group-item">Two</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
 
