@@ -32,8 +32,18 @@ $(document).ready(() => {
 
     const loginBtn = $('#ups-login-btn');
     const loginForm = $('#ups-login-form');
+    
+    const summaryBtn = $('#ups-summary-btn');
+    const listBtn = $('#ups-detail-btn');
+    const summaryView = $('#ups-summary-view');
+    const listView = $('#ups-list-view');
+
+    const inboundBtn = $('#ups-inbound-btn');
+    const outboundBtn = $('#ups-outbound-btn');
+    const myChoiceBtn = $('#ups-mychoice-btn');
 
     console.log('Document loaded!');
+    // Hide login
     loginBtn.click((e) => {
         console.log('Login btn clicked');
         e.preventDefault();
@@ -41,6 +51,43 @@ $(document).ready(() => {
         // Hide login on submit
         loginForm.slideUp();
         
+    });
+
+    // MyChoice login
+    myChoiceBtn.click((e) => {
+        if (loginForm.is(':hidden')) {
+            loginForm.slideDown();
+        }
+    });
+
+    // Switch between inbound/outbound tabs in detail view
+    inboundBtn.click((e) => {
+        if (outboundBtn.hasClass('ups-underline-gray')) {
+            outboundBtn.removeClass('ups-underline-gray');
+        }
+        if (!inboundBtn.hasClass('ups-underline-gray')) {
+            inboundBtn.addClass('ups-underline-gray');
+        }
+    });
+    outboundBtn.click((e) => {
+        if (inboundBtn.hasClass('ups-underline-gray')) {
+            inboundBtn.removeClass('ups-underline-gray');
+        }
+        if (!outboundBtn.hasClass('ups-underline-gray')) {
+            outboundBtn.addClass('ups-underline-gray');
+        }
+    });
+
+    // Switch between summary/detail view
+    listBtn.click((e) => {
+        console.log('list btn clicked');
+        summaryView.hide();
+        listView.show();
+    });
+    summaryBtn.click((e) => {
+        console.log('summary btn clicked');
+        listView.hide();
+        summaryView.show();
     });
     
     const Shipment1_TrackingNumber = $('#Shipment1_TrackingNumber');

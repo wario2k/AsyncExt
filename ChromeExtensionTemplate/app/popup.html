@@ -1,23 +1,24 @@
 <!doctype html>
 <html>
+
 <head>
-    <title>UPS Chrome Extention</title>
-    <style>
-        body {
-            min-width: 357px;
-            overflow-x: hidden;
-        }
+  <title>UPS Chrome Extention</title>
+  <style>
+    body {
+      min-width: 357px;
+      overflow-x: hidden;
+    }
 
-        img {
-            margin: 5px;
-            border: 2px solid black;
-            vertical-align: middle;
-            width: 75px;
-            height: 75px;
-        }
-    </style>
+    img {
+      margin: 5px;
+      border: 2px solid black;
+      vertical-align: middle;
+      width: 75px;
+      height: 75px;
+    }
+  </style>
 
-    <!--
+  <!--
       - JavaScript and HTML must be in separate files: see our Content Security
       - Policy documentation[1] for details and explanation.
       -
@@ -35,72 +36,16 @@
 </head>
 
 <body>
-
-
-    <div class="navbar" style="background-color:black" align="center">
-        <img src="https://cdn.worldvectorlogo.com/logos/ups.svg">
-    </div>
-
-    <h3 align="center">Inbound Packages</h3>
-
-    <!--Package 1-->
-    <div align="center" class="panel-group">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a id="Shipment1_TrackingNumber" data-toggle="collapse" href="#collapse1">Collapsible list group</a>
-                </h4>
-            </div>
-            <div id="collapse1" class="panel-collapse collapse">
-                <ul class="list-group">
-                    <li id="Shipment1_DeliveryDateBy" class="list-group-item">One</li>
-                    <li id="Shipment1_Status" class="list-group-item">Two</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!--Package 2-->
-    <div align="center" class="panel-group">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a id="Shipment2_TrackingNumber" data-toggle="collapse" href="#collapse2">Collapsible list group</a>
-                </h4>
-            </div>
-            <div id="collapse2" class="panel-collapse collapse">
-                <ul class="list-group">
-                    <li id="Shipment2_DeliveryDateBy" class="list-group-item">One</li>
-                    <li id="Shipment2_Status" class="list-group-item">Two</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!--Package 3-->
-    <div align="center" class="panel-group">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a id="Shipment3_TrackingNumber" data-toggle="collapse" href="#collapse3">Collapsible list group</a>
-                </h4>
-            </div>
-            <div id="collapse3" class="panel-collapse collapse">
-                <ul class="list-group">
-                    <li id="Shipment3_DeliveryDateBy" class="list-group-item">One</li>
-                    <li id="Shipment3_Status" class="list-group-item">Two</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
   <div class="container">
     <div class="row text-white text-center ups-header">
+      <div class="col-12 bg-secondary ups-navbar text-left">
+        <img alt="" src="https://cdn.worldvectorlogo.com/logos/ups.svg"> MyChoice for Chrome
+      </div>
       <div class="col-6 bg-secondary">
         <div class="btn-block p-2">Google Account</div>
       </div>
       <div class="col-6 bg-secondary">
-        <div class="btn-block ups-underline-gray p-2">UPS MyChoice</div>
+        <div class="btn-block ups-underline-gray p-2" id="ups-mychoice-btn">UPS MyChoice</div>
       </div>
       <div class="col-12 p-4 bg-ups-gray" id="ups-login-form">
         <input type="text" class="form-control" id="ups-usr-input" placeholder="Username" required>
@@ -118,42 +63,69 @@
       </div>
     </div>
     <hr>
-    <label class="font-weight-bold" for="exampleInputEmail1">12 Total Packages</label>
-    <div class="row ups-summary-list">
-      <div>
-        <div class="bg-order-processed">
-          <p>4</p>
-          <p>Order Processed</p>
+    <div id="ups-summary-view">
+      <label class="font-weight-bold" for="exampleInputEmail1">12 Total Packages</label>
+      <div class="row ups-summary-list">
+        <div>
+          <div class="bg-order-processed">
+            <p>4</p>
+            <p>Order Processed</p>
+          </div>
+        </div>
+        <div>
+          <div class="bg-in-transit">
+            <p>3</p>
+            <p>In Transit</p>
+          </div>
+        </div>
+        <div>
+          <div class="bg-delivered">
+            <p>3</p>
+            <p>Delivered</p>
+          </div>
         </div>
       </div>
-      <div>
-        <div class="bg-in-transit">
-          <p>3</p>
-          <p>In Transit</p>
+      <div class="text-center">
+        <button type="button" id="ups-detail-btn" class="btn btn-secondary mt-1 mb-2">Detailed View</button>
+      </div>
+    </div>
+
+    <div class="row" id="ups-list-view" style="display: none">
+      <div class="col-12">
+        <a href="#" class="ups-link" id="ups-summary-btn">&lt; Back To Summary</a>
+      </div>
+      <div class="col-6 text-center">
+        <div role="button" id="ups-inbound-btn" class="ups-underline-gray ups-button">
+          <h5>Inbound</h5>
         </div>
       </div>
-      <div>
-        <div class="bg-delivered">
-          <p>3</p>
-          <p>Delivered</p>
+      <div class="col-6 text-center">
+        <div role="button" id="ups-outbound-btn" class="ups-button">
+          <h5>Outbound</h5>
+        </div>
+      </div>
+      <div class="col-12 p-2">
+        <div class="ups-pkg-card pb-1 w-100">
+          <div class="p-1 bg-ups-gray w-100"><a href="#" class="">1ZDL32908D09KA02321321</a></div>
+          <h5 class="pl-1">In Transit</h5>
+          <strong class="pl-1">Delivery Date: </strong><span>9/25/2019</span>
+        </div>
+      </div>
+      <div class="col-12 p-2">
+        <div class="ups-pkg-card pb-1 w-100">
+          <div class="p-1 bg-ups-gray w-100"><a href="#" class="">1ZDL32908D09KA02321321</a></div>
+          <h5 class="pl-1">In Transit</h5>
+          <strong class="pl-1">Delivery Date: </strong><span>9/25/2019</span>
+        </div>
+      </div>
+      <div class="col-12 p-2">
+        <div class="ups-pkg-card pb-1 w-100">
+          <div class="p-1 bg-ups-gray w-100"><a href="#" class="">1ZDL32908D09KA02321321</a></div>
+          <h5 class="pl-1">In Transit</h5>
+          <strong class="pl-1">Delivery Date: </strong><span>9/25/2019</span>
         </div>
       </div>
     </div>
-    <div class="text-center">
-      <button type="button" id="ups-detail-view-btn" class="btn btn-secondary mt-1 mb-2">Detailed View</button>
-    </div>
-    <h1>UPS</h1>
-    <h2>Package 1</h2>
-    <h4>Status: In Transit</h4>
-    <h4>Estamated Delivery Date: 06/27/2019</h4>
-
-    <h2>Package 2</h2>
-    <h4>Status: Delivered</h4>
-    <h4>Estamated Delivery Date: 06/22/2019</h4>
-
-    <h2>Package 3</h2>
-    <h4>Status: Order Processed</h4>
-    <h4>Estamated Delivery Date: 06/28/2019</h4>
   </div>
 </body>
 

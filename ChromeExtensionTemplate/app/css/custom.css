@@ -2,6 +2,22 @@ body, button, input {
     font-size: 8pt;
 }
 
+.ups-navbar {
+    font-size: 20px;
+    color: white;
+}
+
+.ups-navbar > img {
+    height: 20px;
+    width: 20px;
+}
+
+.ups-link {
+    font-size: 12pt;
+    color: black;
+    text-decoration: underline;
+}
+
 .bg-ups-gold {
     background-color: #FFD100;
 }
@@ -52,4 +68,14 @@ hr {
     height: 2em; 
     line-height: 2em;
     overflow: hidden;
+}
+
+.ups-button {
+    cursor: pointer;
+}
+
+.ups-pkg-card {
+    border: 1px solid black;
+    overflow: hidden;
+    border-left: 2px solid #6E7E1B; 
 }
