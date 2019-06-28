@@ -11,39 +11,12 @@ var popup = {
     }
 };
 
-const Shipment1 = {
-    DeliveryDateBy: '6/27/2019',
-    Status: 'In Transit',
-    TrackingNumber: '1z939248923049320'
-};
+const STATUSES = ['Order Received', 'In Transit', 'Delivered'];
 
-const Shipment2 = {
-    DeliveryDateBy: '6/27/2019',
-    Status: 'Order Processed',
-    TrackingNumber: '1z939248923049320'
-};
-const Shipment3 = {
-    DeliveryDateBy: '6/25/2019',
-    Status: 'Delivered',
-    TrackingNumber: '1z939248923049320'
-};
+let packages = {};
 
-const storageKeyPrefix = 'upsCompact';
-const PKG_LIST_KEY = `${storageKeyPrefix}PkgList`;
-let pkgList = [];
-
-chrome.storage.local.set({PKG_LIST_KEY: [Shipment1, Shipment2]}, () => {
-    chrome.storage.local.get([PKG_LIST_KEY], res => {
-        pkgList = res.upsCompactPkgList;
-        console.log(res);
-        console.log(res.upsCompactPkgList);
-        console.log(res.upsCompactPkgList.length);
-    });
-});
 
 $(document).ready(() => {
-
-
     const loginBtn = $('#ups-login-btn');
     const loginForm = $('#ups-login-form');
     
@@ -56,6 +29,46 @@ $(document).ready(() => {
     const inboundBtn = $('#ups-inbound-btn');
     const outboundBtn = $('#ups-outbound-btn');
     const myChoiceBtn = $('#ups-mychoice-btn');
+
+    const pkgListDiv = $('#ups-package-list');
+    const totalPkgCount = $('#ups-total-count');
+    const orderReceivedCount = $('#ups-order-count');
+    const inTransitCount = $('#ups-transit-count');
+    const deliveredCount = $('#ups-delivered-count');
+
+    const updateViews = () => {
+        pkgListDiv.empty();
+        let counts = [0,0,0];
+        for (const trackNum in packages) {
+            const pkg = packages[trackNum];
+            pkgListDiv.append($(`
+            <div class="col-12 p-2">
+                <div class="ups-pkg-card pb-1 w-100">
+                <div class="p-1 bg-ups-gray w-100"><a href="#" class="">${pkg.TrackingNumber}</a></div>
+                <h5 class="pl-1">${STATUSES[pkg.Status]}</h5>
+                <strong class="pl-1">Delivery Date: </strong><span>${pkg.DeliveryDateBy}</span>
+                </div>
+            </div>
+            `));
+            counts[pkg.Status]++;
+        }
+
+        // Update Summary View
+        orderReceivedCount.text(counts[0]);
+        inTransitCount.text(counts[1]);
+        deliveredCount.text(counts[2]);
+        totalPkgCount.text(counts[0]+counts[1]+counts[2]);
+    };
+
+    // Setup channel between popup and background
+    const port = chrome.extension.connect({
+        name: 'ups-compact-channel'
+    });
+    port.postMessage(true);
+    port.onMessage.addListener(msg => {
+        packages = msg;
+        updateViews();
+    });
 
     console.log('Document loaded!');
     // Hide login
@@ -72,7 +85,7 @@ $(document).ready(() => {
     // MyChoice login
     myChoiceBtn.click((e) => {
         if (loginForm.is(':hidden')) {
-            loginForm.slideDown();
+        loginForm.slideDown();
             mainView.slideUp();
         }
     });
@@ -92,7 +105,7 @@ $(document).ready(() => {
         }
         if (!outboundBtn.hasClass('ups-underline-gray')) {
             outboundBtn.addClass('ups-underline-gray');
-        }
+}
     });
 
     // Switch between summary/detail view
@@ -106,26 +119,5 @@ $(document).ready(() => {
         listView.hide();
         summaryView.show();
     });
-    
-    const Shipment1_TrackingNumber = $('#Shipment1_TrackingNumber');
-    Shipment1_TrackingNumber.text(Shipment1.TrackingNumber);
-    const Shipment1_DeliveryDateBy = $('#Shipment1_DeliveryDateBy');
-    Shipment1_DeliveryDateBy.text(Shipment1.DeliveryDateBy);
-    const Shipment1_Status = $('#Shipment1_Status');
-    Shipment1_Status.text(Shipment1.Status);
-
-    const Shipment2_TrackingNumber = $('#Shipment2_TrackingNumber');
-    Shipment2_TrackingNumber.text(Shipment2.TrackingNumber);
-    const Shipment2_DeliveryDateBy = $('#Shipment2_DeliveryDateBy');
-    Shipment2_DeliveryDateBy.text(Shipment2.DeliveryDateBy);
-    const Shipment2_Status = $('#Shipment2_Status');
-    Shipment2_Status.text(Shipment2.Status);
-
-    const Shipment3_TrackingNumber = $('#Shipment3_TrackingNumber');
-    Shipment3_TrackingNumber.text(Shipment3.TrackingNumber);
-    const Shipment3_DeliveryDateBy = $('#Shipment3_DeliveryDateBy');
-    Shipment3_DeliveryDateBy.text(Shipment3.DeliveryDateBy);
-    const Shipment3_Status = $('#Shipment3_Status');
-    Shipment3_Status.text(Shipment3.Status);
 });
 

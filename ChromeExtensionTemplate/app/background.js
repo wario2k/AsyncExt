@@ -1,34 +1,81 @@
 ﻿'use strict';
 
-function show() {
-    var time = /(..)(:..)/.exec(new Date());
-    var hour = time[1] % 12 || 12;
-    var period = time[1] < 12 ? 'a.m' : 'p.m';
-    new Notification(hour + time[2] + ' ' + period, {
-        body: 'Testing a Toast.'
-    })
-}
+const Shipment1 = {
+    DeliveryDateBy: '6/28/2019',
+    Status: 0,
+    TrackingNumber: '1Z939248923049001'
+};
 
-if (!localStorage.isInitialized) {
-    localStorage.isActivated = true;
-    localStorage.frequency = 1;
-    localStorage.isInitialized = true;
-}
+const Shipment2 = {
+    DeliveryDateBy: '6/28/2019',
+    Status: 0,
+    TrackingNumber: '1Z939248923049002'
+};
+const Shipment3 = {
+    DeliveryDateBy: '6/29/2019',
+    Status: 0,
+    TrackingNumber: '1Z939248923049003'
+};
 
-if (window.Notification) {
-    if (JSON.parse(localStorage.isActivated)){ show(); }
+const TIMER = 5000;
+const STATES = [
+    [Shipment1],
+    [Shipment2],
+    [Shipment1],
+    [Shipment1,Shipment3],
+    [Shipment2],
+    [Shipment3]
+];
+let index = 0;
 
-    var interval = 0; //display interval in minutes 
-
-    setInterval(function () {
-        interval++;
-        if (
-            JSON.parse(localStorage.isActivated &&
-                localStorage.frequency <= interval)
-        ) {
-            show();
-            interval = 0;
-        }
+const STATUSES = ['Order Received', 'In Transit', 'Delivered'];
+let packages = {};
+var port;
+var timer;
+function showNotification(pkg) {
+    if(window.Notification) {
+        new Notification(`${pkg.TrackingNumber} Update`, {
+            body: `Package ${pkg.TrackingNumber}'s state is ${STATUSES[pkg.Status]}`
+        });
     }
-        , 600000);//timeout
 }
+function getUpdate() {
+    // Get updates every 15 seconds
+    timer = setInterval(() => {
+        console.log(`${STATES} at ${index}`);
+        console.log(`is ${STATES[index]}`);
+        for (const pkg of STATES[index]) {
+            // Add package or update status
+            if (packages[pkg.TrackingNumber]) {
+                pkg.Status++;
+            }
+            packages[pkg.TrackingNumber] = pkg;
+            showNotification(pkg);
+        }
+
+        // Try to send an update
+        try {
+            port.postMessage(packages);
+        } catch(ex) {
+            console.error(`Connection failed: ${ex}`);
+        }
+
+        index++;
+        // Stop timer once its done going through states
+        if(index >=  STATES.length) {
+            clearInterval(timer);
+        }
+    }, TIMER);
+}
+getUpdate();
+
+chrome.extension.onConnect.addListener(connection => {
+    console.log("Connected .....");
+    port = connection;
+    // If popup is opened, send latest list of packages
+    port.onMessage.addListener(msg => {
+         console.log("message recieved: " + msg);
+         port.postMessage(packages);
+    });
+
+})
