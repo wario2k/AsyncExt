@@ -28,7 +28,21 @@ const Shipment3 = {
     TrackingNumber: '1z939248923049320'
 };
 
+const storageKeyPrefix = 'upsCompact';
+const PKG_LIST_KEY = `${storageKeyPrefix}PkgList`;
+let pkgList = [];
+
+chrome.storage.local.set({PKG_LIST_KEY: [Shipment1, Shipment2]}, () => {
+    chrome.storage.local.get([PKG_LIST_KEY], res => {
+        pkgList = res.upsCompactPkgList;
+        console.log(res);
+        console.log(res.upsCompactPkgList);
+        console.log(res.upsCompactPkgList.length);
+    });
+});
+
 $(document).ready(() => {
+
 
     const loginBtn = $('#ups-login-btn');
     const loginForm = $('#ups-login-form');
@@ -37,6 +51,7 @@ $(document).ready(() => {
     const listBtn = $('#ups-detail-btn');
     const summaryView = $('#ups-summary-view');
     const listView = $('#ups-list-view');
+    const mainView = $('#ups-signin-view');
 
     const inboundBtn = $('#ups-inbound-btn');
     const outboundBtn = $('#ups-outbound-btn');
@@ -50,6 +65,7 @@ $(document).ready(() => {
 
         // Hide login on submit
         loginForm.slideUp();
+        mainView.slideDown();
         
     });
 
@@ -57,6 +73,7 @@ $(document).ready(() => {
     myChoiceBtn.click((e) => {
         if (loginForm.is(':hidden')) {
             loginForm.slideDown();
+            mainView.slideUp();
         }
     });
 

@@ -63,66 +63,68 @@
       </div>
     </div>
     <hr>
-    <div id="ups-summary-view">
-      <label class="font-weight-bold" for="exampleInputEmail1">12 Total Packages</label>
-      <div class="row ups-summary-list">
-        <div>
-          <div class="bg-order-processed">
-            <p>4</p>
-            <p>Order Processed</p>
+    <div id="ups-signin-view" style="display: none;">
+      <div id="ups-summary-view">
+        <label class="font-weight-bold" for="exampleInputEmail1">12 Total Packages</label>
+        <div class="row ups-summary-list">
+          <div>
+            <div class="bg-order-processed">
+              <p>4</p>
+              <p>Order Processed</p>
+            </div>
+          </div>
+          <div>
+            <div class="bg-in-transit">
+              <p>3</p>
+              <p>In Transit</p>
+            </div>
+          </div>
+          <div>
+            <div class="bg-delivered">
+              <p>3</p>
+              <p>Delivered</p>
+            </div>
           </div>
         </div>
-        <div>
-          <div class="bg-in-transit">
-            <p>3</p>
-            <p>In Transit</p>
-          </div>
-        </div>
-        <div>
-          <div class="bg-delivered">
-            <p>3</p>
-            <p>Delivered</p>
-          </div>
+        <div class="text-center">
+          <button type="button" id="ups-detail-btn" class="btn btn-secondary mt-1 mb-2">Detailed View</button>
         </div>
       </div>
-      <div class="text-center">
-        <button type="button" id="ups-detail-btn" class="btn btn-secondary mt-1 mb-2">Detailed View</button>
-      </div>
-    </div>
 
-    <div class="row" id="ups-list-view" style="display: none">
-      <div class="col-12">
-        <a href="#" class="ups-link" id="ups-summary-btn">&lt; Back To Summary</a>
-      </div>
-      <div class="col-6 text-center">
-        <div role="button" id="ups-inbound-btn" class="ups-underline-gray ups-button">
-          <h5>Inbound</h5>
+      <div class="row" id="ups-list-view" style="display: none">
+        <div class="col-12">
+          <a href="#" class="ups-link" id="ups-summary-btn">&lt; Back To Summary</a>
         </div>
-      </div>
-      <div class="col-6 text-center">
-        <div role="button" id="ups-outbound-btn" class="ups-button">
-          <h5>Outbound</h5>
+        <div class="col-6 text-center">
+          <div role="button" id="ups-inbound-btn" class="ups-underline-gray ups-button">
+            <h5>Inbound</h5>
+          </div>
         </div>
-      </div>
-      <div class="col-12 p-2">
-        <div class="ups-pkg-card pb-1 w-100">
-          <div class="p-1 bg-ups-gray w-100"><a href="#" class="">1ZDL32908D09KA02321321</a></div>
-          <h5 class="pl-1">In Transit</h5>
-          <strong class="pl-1">Delivery Date: </strong><span>9/25/2019</span>
+        <div class="col-6 text-center">
+          <div role="button" id="ups-outbound-btn" class="ups-button">
+            <h5>Outbound</h5>
+          </div>
         </div>
-      </div>
-      <div class="col-12 p-2">
-        <div class="ups-pkg-card pb-1 w-100">
-          <div class="p-1 bg-ups-gray w-100"><a href="#" class="">1ZDL32908D09KA02321321</a></div>
-          <h5 class="pl-1">In Transit</h5>
-          <strong class="pl-1">Delivery Date: </strong><span>9/25/2019</span>
+        <div class="col-12 p-2">
+          <div class="ups-pkg-card pb-1 w-100">
+            <div class="p-1 bg-ups-gray w-100"><a href="#" class="">1ZDL32908D09KA02321321</a></div>
+            <h5 class="pl-1">In Transit</h5>
+            <strong class="pl-1">Delivery Date: </strong><span>9/25/2019</span>
+          </div>
         </div>
-      </div>
-      <div class="col-12 p-2">
-        <div class="ups-pkg-card pb-1 w-100">
-          <div class="p-1 bg-ups-gray w-100"><a href="#" class="">1ZDL32908D09KA02321321</a></div>
-          <h5 class="pl-1">In Transit</h5>
-          <strong class="pl-1">Delivery Date: </strong><span>9/25/2019</span>
+        <div class="col-12 p-2">
+          <div class="ups-pkg-card pb-1 w-100">
+            <div class="p-1 bg-ups-gray w-100"><a href="#" class="">1ZDL32908D09KA02321321</a></div>
+            <h5 class="pl-1">In Transit</h5>
+            <strong class="pl-1">Delivery Date: </strong><span>9/25/2019</span>
+          </div>
+        </div>
+        <div class="col-12 p-2">
+          <div class="ups-pkg-card pb-1 w-100">
+            <div class="p-1 bg-ups-gray w-100"><a href="#" class="">1ZDL32908D09KA02321321</a></div>
+            <h5 class="pl-1">In Transit</h5>
+            <strong class="pl-1">Delivery Date: </strong><span>9/25/2019</span>
+          </div>
         </div>
       </div>
     </div>
