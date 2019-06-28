@@ -5,9 +5,13 @@ document.addEventListener('DOMContentLoaded', function () {
     popup.init();
 });
 
+let loggedIn = false;
+
 var popup = {
+
     init: function () {
         console.log('Popup loaded!');
+        loggedIn = false;
     }
 };
 
@@ -17,9 +21,30 @@ let packages = {};
 
 
 $(document).ready(() => {
+    chrome.storage.sync.get("signedIn", function (items) {
+        if (!chrome.runtime.error) {
+            console.log("this was successful");
+            console.log(items.signedIn);
+            
+        }
+        if (items.signedIn == true) {
+            // Hide login on submit
+            loginForm.slideUp();
+            mainView.slideDown();
+        }
+    });
+
     const loginBtn = $('#ups-login-btn');
     const loginForm = $('#ups-login-form');
-    
+    if (loggedIn) {
+        // Hide login on submit
+        loginForm.slideUp();
+        mainView.slideDown();
+    }
+    //getting input boxes to clear 
+    const usrNameField = $('#ups-usr-input');
+    const passwordField = $('#ups-pwd-input');
+
     const summaryBtn = $('#ups-summary-btn');
     const listBtn = $('#ups-detail-btn');
     const summaryView = $('#ups-summary-view');
@@ -79,6 +104,15 @@ $(document).ready(() => {
         // Hide login on submit
         loginForm.slideUp();
         mainView.slideDown();
+
+        chrome.storage.sync.set({ "signedIn": true }, function () {
+            if (chrome.runtime.error) {
+                console.log("Runtime error.");
+            }
+            else {
+                console.log("storage was successful");
+            }
+        });
         
     });
 
@@ -87,7 +121,10 @@ $(document).ready(() => {
         if (loginForm.is(':hidden')) {
         loginForm.slideDown();
             mainView.slideUp();
+            loggedIn = true;
         }
+        usrNameField.val("");
+        passwordField.val("");
     });
 
     // Switch between inbound/outbound tabs in detail view
