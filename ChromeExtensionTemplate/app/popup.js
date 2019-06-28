@@ -27,7 +27,7 @@ $(document).ready(() => {
             console.log(items.signedIn);
             
         }
-        if (items.signedIn == true) {
+        if (items.signedIn === true) {
             // Hide login on submit
             loginForm.slideUp();
             mainView.slideDown();
