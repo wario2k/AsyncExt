@@ -29,6 +29,20 @@ const Shipment3 = {
 };
 
 $(document).ready(() => {
+
+    const loginBtn = $('#ups-login-btn');
+    const loginForm = $('#ups-login-form');
+
+    console.log('Document loaded!');
+    loginBtn.click((e) => {
+        console.log('Login btn clicked');
+        e.preventDefault();
+
+        // Hide login on submit
+        loginForm.slideUp();
+        
+    });
+    
     const Shipment1_TrackingNumber = $('#Shipment1_TrackingNumber');
     Shipment1_TrackingNumber.text(Shipment1.TrackingNumber);
     const Shipment1_DeliveryDateBy = $('#Shipment1_DeliveryDateBy');
