@@ -1,9 +1,9 @@
-# ChromeExtensionTemplate
+# AsyncExt
 
 This is a simple Chrome extension template project in Visual Studio 2017.
 It does not contain any refrences to 3rd party components and frameworks.
 The project is intended as a basic starting point for a Chrome extension
-if you are going to develop iot in Visual Studio.
+if you are going to develop it in Visual Studio.
 
 ## How to use the project
 
@@ -29,16 +29,9 @@ After you create a new project using the template, you need to:
 
 For changes in this project, check the Commits tab on GitHub.
 
-## Contribute
-Check out the [contribution guidelines](CONTRIBUTING.md)
-if you want to contribute to this project.
-
-For cloning and building this project yourself, make sure ...
-
 ## License
 This software is provided under a [MIT License](LICENSE.md)
 
 ## Notes
 
 This project uses ideas from Mads Kristensen's template for Visual Studio 2015.
-Thank you, Mads!
